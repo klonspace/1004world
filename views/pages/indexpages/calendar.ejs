@@ -1,0 +1,60 @@
+<% for(var i=0; i<info.streams.length; i++) {%>
+<% if(i == 0)  { %>
+<div class="monthContainer">
+        <div class="month">
+                <span><%= info.streams[i].dateInfo.month %></span>
+        </div>
+        <div class="monthStreams">
+                <% } else { %>
+                <% if(info.streams[i].dateInfo.month != info.streams[i-1].dateInfo.month)  { %>
+                <div class="monthContainer">
+                        <div class="month">
+                                <span><%= info.streams[i].dateInfo.month %></span>
+                        </div>
+                        <div class="monthStreams">
+                                <% }} %>
+                                <% if(i == 0)  { %>
+
+                                <span class="date"><%= info.streams[i].dateInfo.date %></span>
+                                <div class="dayStreams">
+                                        <% } else { %>
+                                        <% if(info.streams[i].dateInfo.date != info.streams[i-1].dateInfo.date)  { %>
+                                        <span class="date"><%= info.streams[i].dateInfo.date %></span>
+                                        <div class="dayStreams">
+                                                <% }} %>
+                                                <div class="stream">
+
+
+                                                        <a href="/stream/<%= info.streams[i]._id %>" class="streamLink">
+                                                                <span
+                                                                        class="startTime"><%= info.streams[i].dateInfo.startTime %></span>
+                                                                <span
+                                                                        class="endTime"><%= info.streams[i].dateInfo.endTime %></span>
+                                                                <span
+                                                                        class="streamName"><%= info.streams[i].fullName %></span>
+
+                                                        </a>
+
+                                                </div>
+                                                <% if(i+1 == info.streams.length)  { %>
+
+                                        </div>
+                                        <% } else { %>
+                                        <% if(info.streams[i].dateInfo.date != info.streams[i+1].dateInfo.date)  { %>
+                                </div>
+                                <% }} %>
+                                <% if(i+1 == info.streams.length)  { %>
+                        </div>
+                </div>
+
+
+                <% } else { %>
+                <% if(info.streams[i].dateInfo.month != info.streams[i+1].dateInfo.month)  { %>
+        </div>
+</div>
+<% }} %>
+<% } %>
+
+<script>
+        initClickableRows();
+</script>

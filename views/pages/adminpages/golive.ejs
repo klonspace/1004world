@@ -1,0 +1,49 @@
+<div id="subPageHeader">
+        Go Live
+</div>
+<div id="streams">
+        <h3>Preview</h3>
+        <div id="videoPreviewContainer">
+                <div id="vjsCont" data-username="<%= info.userInfo.username %>">
+                        <div id="placeHolder">
+                                <img src="/images/offline.gif">
+                        </div>
+                </div>
+        </div>
+        <h3>Stream Info</h3>
+        <table>
+                <tr>
+                        <td>
+                                Server URL :
+                        </td>
+                        <td>
+                                rtmp://node19961-env-1871450.jcloud.ik-server.com:11070/live
+                        </td>
+                </tr>
+                <tr>
+                        <td>
+                                Stream Key :
+                        </td>
+                        <td>
+                                <%= info.streamKey %>
+                        </td>
+                </tr>
+        </table>
+
+        <h3>Online status</h3>
+        <% if(!info.userInfo.userIsLive) { %>
+        You are not currently streaming. <br><br>
+        <input type="button" value="go online" data-online="true" id="toggleonline">
+        <% } else { %>
+        You are streaming! <br><br>
+        <input type="button" value="go offline" data-online="false" id="toggleonline">
+        <% }%>
+
+        <h3>Next Stream</h3>
+
+
+
+        <script>
+                initGoLive();
+        </script>
+</div>

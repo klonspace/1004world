@@ -1,0 +1,6 @@
+<h2><%= info.stream.fullName %></h2>
+<h3><%= info.stream.dateInfo.date %></h3>
+<%= info.stream.dateInfo.startTime %> - <%= info.stream.dateInfo.endTime %> <br>
+<%- info.stream.imageURL != '' ? '<img src="'+info.stream.imageURL+'">' : ''  %> <br>
+<%- info.stream.description %> <br>
+Hosted by : <%- info.stream.hostInfo.fullName %>

@@ -1,0 +1,36 @@
+.video-js.vjs-custom .vjs-big-play-button {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    font-size: 30px;
+    transition: transform 0.5s;
+}
+
+.vjs-custom .vjs-big-play-button:hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    transition: transform 0.5s;
+}
+
+.vjs-custom .vjs-control-text {
+    display: none;
+    opacity: 0;
+}
+
+.vjs-custom .vjs-big-play-button .vjs-icon-placeholder::before {
+    font-size: 30px;
+}
+.vjs-custom .vjs-control-bar {
+    display: none;
+}
+
+
+.vjs-custom:hover .vjs-big-play-button {
+    top: 50%;
+    left: 50%;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+}

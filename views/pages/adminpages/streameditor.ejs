@@ -1,0 +1,65 @@
+<form action="#" id="streamFormEdit">
+    <input type="hidden" id="streamID" value="<%= info.stream._id %>">
+    <table id="streamInfoFormatter">
+        <tr>
+            <td class="label">
+                Stream Title
+            </td>
+            <td class="form">
+                <input type="text" id="streamTitle" name="streamTitle" value="<%= info.stream.fullName %>">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Date
+            </td>
+            <td>
+                <input type="hidden" id="datepickerDefault" value="<%= info.stream.dateInfo.dateForFlatPickr %>">
+                <input type="text" id="datepicker" value="<%= info.stream.dateInfo.dateForFlatPickr %>">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Start time
+            </td>
+            <td class="problemFields">
+                <input type="text" id="startTimeHours" size="1" value="<%= info.stream.dateInfo.timeBegin[0] %>">:<input
+                    type="text" id="startTimeMinutes" size="1" value="<%= info.stream.dateInfo.timeBegin[1] %>">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Duration
+            </td>
+            <td class="problemFields">
+                <input type="text" id="durationHours" size="1" value="<%= info.stream.dateInfo.duration[0] %>">:<input
+                    type="text" id="durationMinutes" size="1" value="<%= info.stream.dateInfo.duration[1] %>">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description
+            </td>
+            <td>
+                <textarea id="streamDesc" name="streamDesc"><%= info.stream.description %></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Image
+            </td>
+            <td class="previewImage">
+                    <%- info.stream.imageURL != '' ? '<img src="'+info.stream.imageURL+'">' : ''  %> <br>
+                <input type="file" id="streamImage">
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="save"><% if(info.stream._id != "none") { %> <input type="button" id="deleteStream"
+        value="delete"> <% } %>
+</form>
+<div id="streamsOnDay">
+    <h3>Streams on selected day</h3>
+    <ul id="streamList">
+
+    </ul>
+</div>

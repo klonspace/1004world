@@ -1,0 +1,104 @@
+<div id="subPageHeader">
+        Manage Users
+</div>
+<div id="streams">
+        Search : <input type="text" id="search" placeholder="username, email">
+        <input type="button" id="save" value="save changes">
+        <table>
+                <tr>
+                        <td>
+                                <b>Username</b>
+                        </td>
+                        <td>
+                                Email adress
+                        </td>
+                        <td>
+                                Role
+                        </td>
+
+                </tr>
+                <% for(var i=0; i<info.users.length; i++) {%>
+                <tr class="user">
+                        <td><b><%= info.users[i].username %></b></td>
+                        <td><%= info.users[i].email %></td>
+                        <td class="role">
+                                <select class="roleSelect" data-userid="<%=info.users[i]._id %>">
+                                        <option <% if(info.users[i].role == "guest") { %>selected<% } %>>guest</option>
+                                        <option <% if(info.users[i].role == "host") { %>selected<% } %>>host</option>
+                                        <option <% if(info.users[i].role == "admin") { %>selected<% } %>>admin</option>
+                                </select>
+                        </td>
+
+                </tr>
+
+                <% } %>
+        </table>
+        <script>
+                function filterList() {
+                        var searchQuery = document.getElementById("search").value;
+                        document.querySelectorAll(".user").forEach((userRow) => {
+                                var thisRow = "";
+                                userRow.childNodes.forEach((childNode) => {
+                                        if (childNode.nodeName == "TD" && childNode.className != "role") {
+                                                thisRow += childNode.textContent;
+                                        }
+
+                                })
+                                if (searchQuery == "" || searchQuery == " ") {
+                                        userRow.classList.remove("invisible");
+                                }
+                                else if (!thisRow.includes(searchQuery)) {
+                                        userRow.classList.add("invisible");
+                                }
+                                else {
+                                        userRow.classList.remove("invisible");
+                                }
+                        });
+                }
+
+                document.querySelectorAll(".roleSelect").forEach((select) => {
+                        select.addEventListener("change", function () {
+                                this.classList.add("changed")
+                        })
+                })
+
+                document.getElementById("search").addEventListener("change", filterList)
+                document.getElementById("search").addEventListener("keyup", filterList)
+
+                async function updateUsers() {
+                        var userList = []
+                        document.querySelectorAll(".roleSelect.changed").forEach((userSelect) => {
+                                userList.push({
+                                        id: userSelect.dataset.userid,
+                                        role: userSelect.options[userSelect.selectedIndex].value
+                                })
+                        });
+                        
+                        var success = await postData("/editUserPermissions", userList)
+
+                        if (success.success == "saved") {
+                                window.location.replace("/admin/handleusers");
+                        }
+                }
+
+                document.getElementById("save").addEventListener("click", updateUsers)
+
+                async function postData(url = '', data = {}) {
+                        // Default options are marked with *
+                        const response = await fetch(url, {
+                                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                                mode: 'cors', // no-cors, *cors, same-origin
+                                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                                credentials: 'same-origin', // include, *same-origin, omit
+                                headers: {
+                                        'Content-Type': 'application/json'
+                                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                                },
+                                redirect: 'follow', // manual, *follow, error
+                                referrer: 'no-referrer', // no-referrer, *client
+                                body: JSON.stringify(data) // body data type must match "Content-Type" header
+                        });
+                        return await response.json(); // parses JSON response into native JavaScript objects
+                }
+        </script>
+</div>

@@ -1,0 +1,19 @@
+<div id="chatBox" class="">
+                    <div id="chatHeader">Chat</div>
+                    <div id="messagesContainer">
+                        <ul id="messages">
+                        </ul>
+                    </div>
+                    <div id="chatFormContainer">
+                        <div id="logInfo">
+                            <% if(isLoggedIn){ %>
+                            Logged in as : <%= user.username %> <a href="/logout" data-barba-prevent>logout</a>
+                            <% } else{ %>
+                            You are not logged in <a href="/login" data-barba-prevent>login</a>
+                            <% } %>
+                        </div>
+                        <form action="" id="chatForm">
+                            <input type="text" id="m"><input type="submit" value="Send" id="chatSubmit">
+                        </form>
+                    </div>
+                </div>

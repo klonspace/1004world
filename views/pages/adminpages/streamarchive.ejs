@@ -1,0 +1,25 @@
+<div id="subPageHeader">
+    Archives of your Streams
+</div>
+<div id="streams">
+    <table>
+
+            <% for(var i=0; i<info.files.length; i++) {%>
+            <tr>
+                    <td>
+                            <b><%= info.files[i].file %></b>
+                    </td>
+                    <td class="streamTime">
+                            <%= info.files[i].minutes %> minutes <%= info.files[i].seconds %> seconds
+                    </td>
+                    <td>
+                        <a href="http://localhost:7000<%= info.files[i].path.substr(7) %>">view</a> (right-click & save as to download)
+                    </td>
+
+            </tr>
+
+            <% } %>
+    </table>
+    <script> 
+    </script>
+</div>

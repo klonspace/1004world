@@ -1,0 +1,25 @@
+<div id="subPageHeader">
+        Your streams
+</div>
+<div id="streams">
+        <table>
+
+                <% for(var i=0; i<info.streams.length; i++) {%>
+                <tr class="clickableRow" href="/admin/editstream/<%= info.streams[i]._id %>">
+                        <td>
+                                <b><%= info.streams[i].dateInfo.date %></b>
+                        </td>
+                        <td class="streamTime">
+                                <%= info.streams[i].dateInfo.startTime %> - <%= info.streams[i].dateInfo.endTime %>
+                        </td>
+                        <td>
+                                <%= info.streams[i].fullName %>
+                        </td>
+                </tr>
+
+                <% } %>
+        </table>
+        <script> 
+                initClickableRows();
+        </script>
+</div>

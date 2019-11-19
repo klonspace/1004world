@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="/js/clickableRow.js"></script>
+    <link rel="stylesheet" href="/css/video-js.min.css">
+    <script src="/js/video.min.js"></script>
+    <script src="/js/videojs-http-streaming.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/css/suisse.css">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/customvideoJS.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/chatbox.css">
+
+    <script src="/js/barba.umd.js"></script>
+    <title><%= pageTitle %></title>
+</head>
+
+<body>
+    <div id="container" data-barba="wrapper">
+        <div id="streamContainer">
+            <div id="vidAndChat">
+                <% if(streamInfo){ %>
+                <div id="vjsCont" data-username="<%= streamInfo.user.username %>">
+                    <div id="placeHolder">
+                        <img src="/images/offline.gif">
+                    </div>
+                </div>
+                <% } else { %>
+                <div id="placeHolder">
+                    <img src="/images/offline.gif">
+                </div>
+
+                <% } %>
+                <%- include("chatbox", {isLoggedIn: isLoggedIn, user:user}); %>
+            </div>
+        </div>
+        <div id="bottomContainer">
+
+            <div id="menu">
+                <div id="title">
+                    1004
+                </div>
+                <div id="links">
+                    <a href="/calendar">Calendar</a><br>
+                    <a href="/about">About</a><br>
+                    <a href="/contact">Contact</a><br>
+                    <a href="#" id="openCB" data-barba-prevent>Open chatbox</a>
+
+                </div>
+            </div>
+            <div id="contentContainer" data-barba="container" class="invisible" data-barba-namespace="<%= currPage %>">
+                <%- include('indexpages/'+currPage, {info: info}); %>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <script src="/js/videoJSinit.js"></script>
+    <script src="/js/chatBoxDisplay.js"></script>
+    <script src="/socket.io.js"></script>
+    <script src="/js/chatBoxServer.js"></script>
+
+    <% if(streamInfo){ %>
+    <script>
+        startVIDEOJS();
+
+    </script>
+    <% } %>
+    <script>
+        barba.init({
+            transitions: [
+                {
+                    leave(data) {
+                        const done = this.async();
+
+                        transitionOut();
+                        setTimeout(done, 400);
+                    },
+                    after({ next }) {
+                        // retrieve the next page url (short syntax)
+                        const to = next.url;
+                        console.log(next.url)
+                        setTimeout(function () {
+                            document.getElementById("contentContainer").classList.remove("invisible")
+                        }, 30);
+                        if (next.namespace == "calendar") {
+                            initClickableRows();
+                        }
+                    },
+                }
+            ]
+        })
+        function transitionOut() {
+            document.getElementById("contentContainer").classList.add("invisible");
+
+        }
+
+        document.getElementById("contentContainer").classList.remove("invisible");
+    </script>
+</body>
+
+</html>

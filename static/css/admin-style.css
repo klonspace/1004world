@@ -1,0 +1,140 @@
+
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+#adminHeader {
+    width: 100%;
+    font-size: 50px;
+    box-sizing: border-box;
+    border-bottom: 1px solid black;
+    padding: 10px;
+}
+#adminBody {    
+    display: flex;
+    flex-grow: 2;
+    min-height: 0;
+}
+#adminMenu {
+    width: 400px;
+    flex-basis: 400px;
+    flex-shrink: 0;
+    padding: 10px;
+    border-right: 1px solid black;
+}
+#adminContent {
+    flex-grow: 2;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    padding: 10px;
+    opacity: 1;
+    transition: opacity 400ms;
+}
+#adminContent.invisible {
+    opacity: 0;
+}
+#subPageHeader {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+#addstream {
+    display: flex;
+}
+#streamForm, #streamFormEdit {
+    flex-grow: 2;
+    border-right: 1px solid lightgrey;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+#streamsOnDay {
+    flex-basis: 300px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+#streamFormEdit input {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+#streamFormEdit .problemFields  {
+    color:  green;
+}
+#streamFormEdit .problemFields.problematic  {
+    color:  red;
+}
+
+#streamFormEdit .problemFields input {
+    border: 1px solid green;
+}
+#streamFormEdit .problemFields.problematic input {
+    border: 1px solid red;
+}
+
+
+table#streamInfoFormatter {
+    width: 100%;
+    border-spacing: 0px 10px;
+}
+#streamInfoFormatter td {
+    white-space: nowrap;
+    vertical-align: top;
+}
+#streamInfoFormatter tr {
+    margin-bottom: 10px;
+}
+#streamInfoFormatter .form {
+    width: 100%;
+}
+
+table {
+    /* border-collapse: collapse; */
+}
+table td {
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+td.streamTime {
+    color: grey;
+}
+
+tr.clickableRow {
+    cursor: pointer;
+}
+tr.clickableRow:hover td {
+  border-bottom:1px solid black;
+}
+
+#videoPreviewContainer {
+    width: 400px;
+    max-width: 100%;
+}
+
+
+
+/* //manage */
+
+tr.invisible {
+    display: none;
+}
+.roleSelect {
+    padding: 2px;
+    border: 1px solid green;
+}
+.roleSelect.changed {
+    border: 1px solid orange;
+}
+
+
+
+
+
+.hide {
+    display: none;
+}
+
+.previewImage img {
+    width: 400px;
+}

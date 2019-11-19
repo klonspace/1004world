@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="/css/robotoMono.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/admin-style.css">
+    <link rel="stylesheet" href="/css/flatpickr.min.css">
+    <script src="/js/flatpickr.js"></script>
+    <script src="/js/barba.umd.js"></script>
+    <script src="/js/ckeditor/ckeditor.js"></script>
+    <script src="/js/streamForm.js"></script>
+    <script src="/js/clickableRow.js"></script>
+    <script src="/js/editProfile.js"></script>
+    <link rel="stylesheet" href="/css/video-js.min.css">
+    <script src="/js/video.min.js"></script>
+    <script src="/js/videojs-http-streaming.min.js"></script>
+    <script src="/js/videoJSinit.js"></script>
+    <script src="/js/initgolive.js"></script>
+
+    <link href="/css/customvideoJS.css" rel="stylesheet">
+    <title><%= pageTitle %></title>
+
+</head>
+
+<body>
+    <div id="container" data-barba="wrapper">
+        <div id="adminHeader">
+            ADMIN
+        </div>
+        <div id="adminBody">
+            <div id="adminMenu">
+                <a href="/admin">my profile</a><br>
+                <a href="/admin/streams">my streams</a><br>
+                <a href="/admin/addstream">create a stream</a><br><br>
+                <a href="/admin/golive">go live</a><br><br>
+                <% if(info.userInfo.role == "admin"){ %>
+                <a href="/admin/handleusers">manage users</a>
+                <% } %>
+
+
+            </div>
+            <div id="adminContent" data-barba="container" class="invisible" data-barba-namespace="<%= currPage %>">
+
+                <%- include('adminpages/'+currPage, {info: info}); %>
+            </div>
+        </div>
+    </div>
+    <script>
+        barba.init({
+            cacheIgnore: ['/admin/streams', '/admin/editstream/', '/admin/golive'],
+            transitions: [
+                {
+                    leave(data) {
+                        const done = this.async();
+
+                        transitionOut();
+                        setTimeout(done, 400);
+                    },
+                    after({ next }) {
+                        // retrieve the next page url (short syntax)
+                        const to = next.url;
+                        console.log(next.url)
+                        setTimeout(function () {
+                            document.getElementById("adminContent").classList.remove("invisible")
+                            if (next.namespace == "addstream" || next.namespace == "editstream") {
+                                initHandler(next.namespace);
+                            }
+                            else if(next.namespace == "streams" || next.namespace == "streamarchive" ) {
+                                initClickableRows();
+                            }
+                            else if(next.namespace == "profile") {
+                                initEditableProfile();
+                            }
+                            else if(next.namespace == "golive") {
+                                initGoLive();
+                            }
+                        }, 30);
+                    },
+                }
+            ]
+        })
+        function transitionOut() {
+            document.getElementById("adminContent").classList.add("invisible");
+
+        }
+
+        document.getElementById("adminContent").classList.remove("invisible");
+    </script>
+</body>
+
+</html>
